@@ -1,0 +1,139 @@
+# Prerequisites & Host Environment
+
+# Essential build tools and utilities
+sudo pacman -S --needed base-devel clang lld llvm cpio lz4 tar git python dtc
+
+# Download necessary toolchains
+mkdir toolchains && cd toolchains
+mkdir clang-r383902b1 && cd clang-r383902b1
+wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/android11-qpr2-release/clang-r383902b1.tar.gz
+tar -xzf clang-r383902b1.tar.gz && rm clang-r383902b1.tar.gz && cd ..
+mkdir gcc-aarch64-4.9 && cd gcc-aarch64-4.9
+wget https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/+archive/refs/heads/android11-release.tar.gz
+tar -xzf android11-release.tar.gz && rm android11-release.tar.gz
+
+# Environment export for compiler toolchains
+export ARCH=arm64
+export SUBARCH=arm64
+export CC=/path/to/clang-r383902b1/bin/clang
+export REAL_CC="$CC"
+export CROSS_COMPILE=/path/to/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+export CLANG_TRIPLE=aarch64-linux-gnu-
+export PATH="/path/to/clang-r383902b1/bin:$PATH"
+
+# Clean environment variables to prevent Kconfig lookup errors
+unset KCONFIG_VARIANT
+unset KCONFIG_DEBUG
+
+
+
+# Source Tree Cleanup & Pre-Fixes
+
+cd /path/to/Kernel
+
+# Fix DOS CRLF formatting in Kconfig files
+find . -name "Kconfig*" -exec sed -i 's/\r$//' {} +
+
+# Add trailing newlines to affected Kconfig files
+for f in drivers/block/zram/Kconfig \
+         drivers/net/dropdump/Kconfig \
+         drivers/net/Kconfig \
+         drivers/net/drb/Kconfig \
+         drivers/usb/typec/Kconfig; do
+  echo "" >> "$f"
+done
+
+
+
+# Kernel & Device Tree Compilation
+
+rm -rf out && mkdir out
+
+# Configure Defconfig
+make -C $(pwd) O=$(pwd)/out \
+  CC="$REAL_CC" \
+  REAL_CC="$REAL_CC" \
+  CROSS_COMPILE="$CROSS_COMPILE" \
+  CLANG_TRIPLE=aarch64-linux-gnu- \
+  DTC_EXT=$(pwd)/tools/dtc \
+  CONFIG_BUILD_ARM64_DT_OVERLAY=y \
+  vendor/gta9pwifi_eur_open_defconfig
+
+# Verification: Ensure out/.config exists.
+
+# Compile Kernel Artifacts
+make -j$(nproc) -C $(pwd) O=$(pwd)/out \
+  CC="$REAL_CC" \
+  REAL_CC="$REAL_CC" \
+  CROSS_COMPILE="$CROSS_COMPILE" \
+  CLANG_TRIPLE=aarch64-linux-gnu- \
+  DTC_EXT=$(pwd)/tools/dtc \
+  CONFIG_BUILD_ARM64_DT_OVERLAY=y
+
+# Verification: Confirm out/arch/arm64/boot/Image, out/arch/arm64/boot/dts/vendor/qcom/blair.dtb, and out/arch/arm64/boot/dts/samsung/gta9/gta9pwifi/blair-sec.gta9pwifi.overlay.00.dtbo are generated.
+
+
+
+# Unpacking and Assembling Flashable Images
+
+mkdir -p ~/kernel_workspace/boot ~/kernel_workspace/vendor_boot
+
+# Assemble boot.img
+cd ~/kernel_workspace/boot
+cp /path/to/stock/boot.img .
+
+# Unpack stock boot.img
+magiskboot unpack boot.img
+
+# Replace kernel with built Image
+cp /path/to/Kernel/out/arch/arm64/boot/Image kernel
+
+# Repack boot image
+magiskboot repack boot.img custom_boot.img
+
+
+
+# Assemble vendor_boot.img (DTB & Vendor Ramdisk)
+
+cd ~/kernel_workspace/vendor_boot
+cp /path/to/stock/vendor_boot.img .
+
+# Unpack vendor_boot.img
+magiskboot unpack vendor_boot.img
+
+# Replace Device Tree Blob
+cp /path/to/Kernel/out/arch/arm64/boot/dts/vendor/qcom/blair.dtb dtb
+
+# Extract CPIO ramdisk
+mkdir -p ramdisk_root && cd ramdisk_root
+cpio -idmv < ../ramdisk.cpio
+
+# Copy all compiled kernel modules (.ko)
+cp /path/to/Kernel/out/drivers/*/*.ko lib/modules/ 2>/dev/null || true	# Add subdirectories by adding a new '/*' before the final '.ko' until the shell finds nothing more
+cp /path/to/Kernel/out/techpack/*/*.ko lib/modules/ 2>/dev/null || true	# Add subdirectories by adding a new '/*' before the final '.ko' until the shell finds nothing more
+
+# Repack raw CPIO ramdisk
+find . | cpio -H newc -o > ../ramdisk.cpio
+cd ..
+
+# Repack vendor_boot image
+magiskboot repack vendor_boot.img custom_vendor_boot.img
+
+
+
+# Assemble dtbo.img
+
+mkdtboimg create ~/kernel_workspace/dtbo.img /path/to/Kernel/out/arch/arm64/boot/dts/samsung/gta9/gta9pwifi/blair-sec.gta9pwifi.overlay.00.dtbo
+
+
+
+# Package All Artifacts into Odin Flashable .tar (optional)
+
+cd ~/kernel_workspace
+
+cp boot/custom_boot.img boot.img
+cp vendor_boot/custom_vendor_boot.img vendor_boot.img
+# Ensure dtbo.img is present in this directory
+
+tar -cvf custom_kernel_X210.tar boot.img vendor_boot.img dtbo.img
+
