@@ -15,11 +15,11 @@ tar -xzf android11-release.tar.gz && rm android11-release.tar.gz
 # Environment export for compiler toolchains
 export ARCH=arm64
 export SUBARCH=arm64
-export CC=/path/to/clang-r383902b1/bin/clang
+export CC="$HOME/toolchains/clang-r383902b1/bin/clang"
 export REAL_CC="$CC"
-export CROSS_COMPILE=/path/to/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+export CROSS_COMPILE="$HOME/gcc-aarch64-4.9/bin/aarch64-linux-android-"
 export CLANG_TRIPLE=aarch64-linux-gnu-
-export PATH="/path/to/clang-r383902b1/bin:$PATH"
+export PATH="$HOME/toolchains/clang-r383902b1/bin:$PATH"
 
 # Clean environment variables to prevent Kconfig lookup errors
 unset KCONFIG_VARIANT
@@ -76,7 +76,7 @@ make -j$(nproc) -C $(pwd) O=$(pwd)/out \
 
 # Unpacking and Assembling Flashable Images
 
-mkdir -p ~/kernel_workspace/boot ~/kernel_workspace/vendor_boot
+rm -rf ~/kernel_workspace && mkdir -p ~/kernel_workspace/{boot,vendor_boot}
 
 # Assemble boot.img
 cd ~/kernel_workspace/boot
@@ -109,8 +109,9 @@ mkdir -p ramdisk_root && cd ramdisk_root
 cpio -idmv < ../ramdisk.cpio
 
 # Copy all compiled kernel modules (.ko)
-cp /path/to/Kernel/out/drivers/*/*.ko lib/modules/ 2>/dev/null || true	# Add subdirectories by adding a new '/*' before the final '.ko' until the shell finds nothing more
-cp /path/to/Kernel/out/techpack/*/*.ko lib/modules/ 2>/dev/null || true	# Add subdirectories by adding a new '/*' before the final '.ko' until the shell finds nothing more
+cp /path/to/Kernel/out/drivers/*/*.ko lib/modules/	# Add subdirectories by adding a new '/*' before the final '.ko' until the shell finds nothing more
+cp /path/to/Kernel/out/techpack/*/*.ko lib/modules/	# Add subdirectories by adding a new '/*' before the final '.ko' until the shell finds nothing more
+cp /path/to/Kernel/out/block/*.ko lib/modules/
 
 # Repack raw CPIO ramdisk
 find . | cpio -H newc -o > ../ramdisk.cpio
