@@ -17,7 +17,7 @@ export ARCH=arm64
 export SUBARCH=arm64
 export CC="$HOME/toolchains/clang-r383902b1/bin/clang"
 export REAL_CC="$CC"
-export CROSS_COMPILE="$HOME/gcc-aarch64-4.9/bin/aarch64-linux-android-"
+export CROSS_COMPILE="$HOME/toolchains/gcc-aarch64-4.9/bin/aarch64-linux-android-"
 export CLANG_TRIPLE=aarch64-linux-gnu-
 export PATH="$HOME/toolchains/clang-r383902b1/bin:$PATH"
 
