@@ -1,0 +1,6 @@
+linux-android-samsung-sm-x210 (5.4.249+git20260910103147.77c91e0.droidian) trixie; urgency=medium
+
+  * Minor changes and corrections to HOW_TO_BUILD.txt, added .gitignore
+
+ -- reitia111 <tiarei.tomio111@gmail.com>  Thu, 10 Sep 2026 12:31:47 +0200
+
