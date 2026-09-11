@@ -1,0 +1,32 @@
+KERNEL_DIR="$HOME/droidian/kernel/samsung/SM-X210"
+PACKAGES_DIR="$HOME/droidian/packages"
+mkdir -p $PACKAGES_DIR
+cd $KERNEL_DIR
+git checkout -b droidian
+
+docker run --rm -v $HOME/droidian/packages/buildd -v $HOME/droidian/kernel/samsung/SM-X210/buildd/sources -it quay.io/droidian/build-essential:current-amd64 bash
+
+apt-get install linux-packaging-snippets debootstrap qemu-user-static binfmt-support dpkg-dev initramfs-tools-halium linux-initramfs-halium-generic:arm64 binutils-aarch64-linux-gnu
+
+cd $HOME/droidian/kernel/samsung/SM-X210/buildd/sources
+mkdir -p debian/source
+cp -v /usr/share/linux-packaging-snippets/kernel-info.mk.example debian/kernel-info.mk
+echo 13 > debian/compat
+echo "3.0 (native)" > debian/source/format
+
+"""
+cat > debian/rules <<EOF
+#!/usr/bin/make -f
+
+include /usr/share/linux-packaging-snippets/kernel-snippet.mk
+
+%:
+	dh \$@
+EOF
+"""
+
+chmod +x debian/rules
+
+
+
+
