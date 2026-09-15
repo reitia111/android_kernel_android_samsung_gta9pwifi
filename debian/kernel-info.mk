@@ -226,7 +226,7 @@ CLANG_CUSTOM = 1
 
 # Extra paths to prepend to the PATH variable. You'll probably want
 # to specify the clang path here (the default).
-BUILD_PATH = /usr/local/bin/clang-r383902b1/bin:/usr/local/bin/gcc-aarch64-4.9/bin
+BUILD_PATH = /buildd/sources/toolchains/clang-r383902b1/bin:/buildd/sources/toolchains/gcc-aarch64-4.9/bin
 
 # Extra packages to add to the Build-Depends section. Mainline builds
 # can have this section empty, unless cross-building.

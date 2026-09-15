@@ -6,9 +6,11 @@ git checkout -b droidian
 
 docker run --rm -v $HOME/droidian/packages/buildd -v $HOME/droidian/kernel/samsung/SM-X210/buildd/sources -it quay.io/droidian/build-essential:current-amd64 bash
 
+docker run --rm -v $HOME/droidian/packages:/buildd -v $HOME/droidian/kernel/samsung/SM-X210:/buildd/sources -it quay.io/droidian/build-essential:current-amd64 bash
+
 apt-get install linux-packaging-snippets debootstrap qemu-user-static binfmt-support dpkg-dev initramfs-tools-halium linux-initramfs-halium-generic:arm64 binutils-aarch64-linux-gnu
 
-cd $HOME/droidian/kernel/samsung/SM-X210/buildd/sources
+cd /buildd/sources
 mkdir -p debian/source
 cp -v /usr/share/linux-packaging-snippets/kernel-info.mk.example debian/kernel-info.mk
 echo 13 > debian/compat
@@ -29,4 +31,6 @@ chmod +x debian/rules
 
 
 
-
+export CC=clang
+export CROSS_COMPILE=aarch64-linux-android-
+export CLANG_TRIPLE=aarch64-linux-gnu-
