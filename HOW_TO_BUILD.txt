@@ -69,7 +69,7 @@ make -j$(nproc) -C $(pwd) O=$(pwd)/out \
   DTC_EXT=$(pwd)/tools/dtc \
   CONFIG_BUILD_ARM64_DT_OVERLAY=y
 
-# Verification: Confirm out/arch/arm64/boot/Image, out/arch/arm64/boot/dts/vendor/qcom/blair.dtb, and out/arch/arm64/boot/dts/samsung/gta9/gta9pwifi/blair-sec.gta9pwifi.overlay.00.dtbo are generated.
+# Verification: lsd out/arch/arm64/boot/Image out/arch/arm64/boot/dts/vendor/qcom/blair.dtb out/arch/arm64/boot/dts/samsung/gta9/gta9pwifi/blair-sec.gta9pwifi.overlay.00.dtbo
 
 
 
