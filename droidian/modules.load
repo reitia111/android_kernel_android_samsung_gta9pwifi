@@ -35,3 +35,4 @@ wcd938x_dlkm.ko
 wcd938x_slave_dlkm.ko
 wcd9xxx_dlkm.ko
 wcd_core_dlkm.ko
+wlan.ko

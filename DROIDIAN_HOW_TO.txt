@@ -1,19 +1,28 @@
+# Set up environment
 KERNEL_DIR="$HOME/droidian/kernel/samsung/SM-X210"
 PACKAGES_DIR="$HOME/droidian/packages"
 mkdir -p $PACKAGES_DIR
 cd $KERNEL_DIR
-git checkout -b droidian
+git checkout -b droidian	#omit -b if already created
 
-docker run --rm -v $HOME/droidian/packages/buildd -v $HOME/droidian/kernel/samsung/SM-X210/buildd/sources -it quay.io/droidian/build-essential:current-amd64 bash
 
+# Bring up docker droidian cointainer, the rest will be executed in docker
+# docker run --rm -v $HOME/droidian/packages/buildd -v $HOME/droidian/kernel/samsung/SM-X210/buildd/sources -it quay.io/droidian/build-essential:current-amd64 bash
 docker run --rm -v $HOME/droidian/packages:/buildd -v $HOME/droidian/kernel/samsung/SM-X210:/buildd/sources -it quay.io/droidian/build-essential:current-amd64 bash
 
 apt-get install linux-packaging-snippets debootstrap qemu-user-static binfmt-support dpkg-dev initramfs-tools-halium linux-initramfs-halium-generic:arm64 binutils-aarch64-linux-gnu
 
 cd /buildd/sources
+
+
+# Kernel adaptation to droidian build system
+# Only needed first time
 mkdir -p debian/source
+
 cp -v /usr/share/linux-packaging-snippets/kernel-info.mk.example debian/kernel-info.mk
+
 echo 13 > debian/compat
+
 echo "3.0 (native)" > debian/source/format
 
 """
@@ -29,8 +38,21 @@ EOF
 
 chmod +x debian/rules
 
+# Hopefully needed only once, debian/control has to be edited every time debian/kernel-info.mk
+nano debian/kernel-info.mk	# Modify according to device values
+
+rm -f debian/control
+
+debian/rules debian/control
+
+nano debian/control	# add device-tree-compiler as the last dependency, it coincidentally fills the last empty line in the dependency list that would cause errors later on
+
+RELENG_HOST_ARCH="arm64" releng-build-package
 
 
+
+
+# Random snippets
 export CC=clang
 export CROSS_COMPILE=aarch64-linux-android-
 export CLANG_TRIPLE=aarch64-linux-gnu-
