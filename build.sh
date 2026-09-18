@@ -27,7 +27,7 @@ export PATH=${CLANG_TOOL_PATH}:${PATH//"${CLANG_TOOL_PATH}:"}
 export LD_LIBRARY_PATH="$ROOT_DIR/toolchains/clang-r383902b1/lib"
 
 # Configure
-make -C "$ROOT_DIR" O="$ROOT_DIR/out" CC=clang LLVM=1 ARCH=arm64 DTC_EXT="$ROOT_DIR/tools/dtc" CLANG_TRIPLE=aarch64-linux-gnu- vendor/gta9p_eur_openx_defconfig 2>&1
+make -C "$ROOT_DIR" O="$ROOT_DIR/out" CC=clang LLVM=1 ARCH=arm64 DTC_EXT="$ROOT_DIR/tools/dtc" CLANG_TRIPLE=aarch64-linux-gnu- vendor/gta9pwifi_eur_open_defconfig 2>&1
 
 # Run the build
 if make -C "$ROOT_DIR" O="$ROOT_DIR/out" CC=clang LLVM=1 ARCH=arm64 DTC_EXT="$ROOT_DIR/tools/dtc" CLANG_TRIPLE=aarch64-linux-gnu- -j$(nproc --all) 2>&1; then
@@ -106,7 +106,7 @@ echo "Copying modules into modulebuild..."
 cp -rf $(find out -name '*.ko') "$ROOT_DIR/modulebuild"
 
 echo "Stripping debug symbols from modules..."
-"$ROOT_DIR/toolchain/clang/aosp/bin/llvm-strip" --strip-debug "$ROOT_DIR/modulebuild/"*.ko
+"$ROOT_DIR/toolchains/clang-r383902b1/bin/llvm-strip" --strip-debug "$ROOT_DIR/modulebuild/"*.ko
 echo "Done copying modules."
 
 # --- AnyKernel3 Support ---
