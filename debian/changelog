@@ -1,6 +1,6 @@
-linux-android-samsung-sm-x210 (5.4.249+git20260910103147.77c91e0.droidian+git20260914195151.11846c9.droidian+git20260915211146.504a4df.droidian) trixie; urgency=medium
+linux-android-samsung-sm-x210 (5.4.249+git20260910103147.77c91e0.droidian+git20260914195151.11846c9.droidian+git20260915211146.504a4df.droidian+git20260918101759.73e9edf.droidian) trixie; urgency=medium
 
-  * Small corrections to toolchain paths.
+  * Merge branch 'droidian' of github.com:reitia111/android_kernel_android_samsung_gta9pwifi into droidian
 
- -- reitia111 <tiarei.tomio111@gmail.com>  Tue, 15 Sep 2026 23:11:46 +0200
+ -- reitia111 <tiarei.tomio111@gmail.com>  Fri, 18 Sep 2026 12:17:59 +0200
 
