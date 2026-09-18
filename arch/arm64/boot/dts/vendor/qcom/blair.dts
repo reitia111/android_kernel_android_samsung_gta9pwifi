@@ -125,7 +125,7 @@
 			phandle = <0x55>;
 		};
 
-		splash_region@0x85200000 {
+		splash_region@85200000 {
 			reg = <0x0 0x85200000 0x0 0xc00000>;
 			label = "cont_splash_region";
 			phandle = <0x1e1>;
@@ -7406,7 +7406,7 @@
 			qcom,actlr = <0x800 0x3ff 0x103 0xc00 0x3ff 0x103 0x0 0x3ff 0x1>;
 			phandle = <0x87>;
 
-			anoc_1_tbu@0c705000 {
+			anoc_1_tbu@c705000 {
 				compatible = "qcom,qsmmuv500-tbu";
 				reg = <0xc705000 0x1000 0xc702200 0x8>;
 				reg-names = "base", "status-reg";
@@ -7416,7 +7416,7 @@
 				phandle = <0x280>;
 			};
 
-			anoc_2_tbu@0c709000 {
+			anoc_2_tbu@c709000 {
 				compatible = "qcom,qsmmuv500-tbu";
 				reg = <0xc709000 0x1000 0xc702208 0x8>;
 				reg-names = "base", "status-reg";
@@ -7426,7 +7426,7 @@
 				phandle = <0x281>;
 			};
 
-			mm_rt_tbu@0c70d000 {
+			mm_rt_tbu@c70d000 {
 				compatible = "qcom,qsmmuv500-tbu";
 				reg = <0xc70d000 0x1000 0xc702210 0x8>;
 				reg-names = "base", "status-reg";
@@ -7438,7 +7438,7 @@
 				phandle = <0x282>;
 			};
 
-			mm_nrt_tbu@0c711000 {
+			mm_nrt_tbu@c711000 {
 				compatible = "qcom,qsmmuv500-tbu";
 				reg = <0xc711000 0x1000 0xc702218 0x8>;
 				reg-names = "base", "status-reg";
@@ -7450,7 +7450,7 @@
 				phandle = <0x283>;
 			};
 
-			compute_dsp_0_tbu@0c715000 {
+			compute_dsp_0_tbu@c715000 {
 				compatible = "qcom,qsmmuv500-tbu";
 				reg = <0xc715000 0x1000 0xc702220 0x8>;
 				reg-names = "base", "status-reg";
@@ -15224,7 +15224,7 @@
 		removed_mem = "/reserved-memory/removed_region@c0000000";
 		secure_display_memory = "/reserved-memory/secure_display_region";
 		dump_mem = "/reserved-memory/mem_dump_region";
-		splash_memory = "/reserved-memory/splash_region@0x85200000";
+		splash_memory = "/reserved-memory/splash_region@85200000";
 		dfps_data_memory = "/reserved-memory/dfps_data_region@85e00000";
 		qcom = "/reserved-memory/ramoops";
 		adsp_mem = "/reserved-memory/adsp_region";
@@ -15630,11 +15630,11 @@
 		system_secure_heap = "/soc/qcom,ion/qcom,ion-heap@9";
 		kgsl_smmu = "/soc/arm,smmu-kgsl@5940000";
 		apps_smmu = "/soc/apps-smmu@0c600000";
-		anoc_1_tbu = "/soc/apps-smmu@0c600000/anoc_1_tbu@0c705000";
-		anoc_2_tbu = "/soc/apps-smmu@0c600000/anoc_2_tbu@0c709000";
-		mm_rt_tbu = "/soc/apps-smmu@0c600000/mm_rt_tbu@0c70d000";
-		mm_nrt_tbu = "/soc/apps-smmu@0c600000/mm_nrt_tbu@0c711000";
-		compute_dsp_tbu = "/soc/apps-smmu@0c600000/compute_dsp_0_tbu@0c715000";
+		anoc_1_tbu = "/soc/apps-smmu@0c600000/anoc_1_tbu@c705000";
+		anoc_2_tbu = "/soc/apps-smmu@0c600000/anoc_2_tbu@c709000";
+		mm_rt_tbu = "/soc/apps-smmu@0c600000/mm_rt_tbu@c70d000";
+		mm_nrt_tbu = "/soc/apps-smmu@0c600000/mm_nrt_tbu@c711000";
+		compute_dsp_tbu = "/soc/apps-smmu@c600000/compute_dsp_0_tbu@c715000";
 		csr = "/soc/csr@8001000";
 		swao_csr = "/soc/csr@8a03000";
 		apss_tgu = "/soc/tgu@9840000";
