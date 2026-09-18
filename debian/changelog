@@ -1,0 +1,6 @@
+linux-android-samsung-sm-x210 (5.4.249+git20260910103147.77c91e0.droidian+git20260914195151.11846c9.droidian) trixie; urgency=medium
+
+  * Added recommended toolchains to source to avoid downloading before building.
+
+ -- reitia111 <tiarei.tomio111@gmail.com>  Mon, 14 Sep 2026 21:51:51 +0200
+
