@@ -411,7 +411,7 @@ int d_tree_lookup_path(struct d_tree_ctx *ctx,
 			const char *file_path,
 			struct d_tree_item *found_item)
 {
-	struct subpath_extract_ctx subpath_ctx;
+	struct subpath_extract_ctx subpath_ctx = {0};
 	const char *subpath;
 	size_t l;
 	unsigned int cur_features, offset;

@@ -1,9 +1,10 @@
 # Prerequisites & Host Environment
 
 # Essential build tools and utilities
-sudo pacman -S --needed base-devel clang lld llvm cpio lz4 tar git python dtc
+sudo pacman -S --needed base-devel clang lld llvm cpio lz4 tar git python dtc bc
 
-# Download necessary toolchains
+# Download necessary toolchains if necessary  
+cd /path/to/Kernel
 mkdir toolchains && cd toolchains
 mkdir clang-r383902b1 && cd clang-r383902b1
 wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/android11-qpr2-release/clang-r383902b1.tar.gz
@@ -28,8 +29,6 @@ unset KCONFIG_DEBUG
 
 
 # Source Tree Cleanup & Pre-Fixes
-
-cd /path/to/Kernel
 
 # Fix DOS CRLF formatting in Kconfig files
 find . -name "Kconfig*" -exec sed -i 's/\r$//' {} +
@@ -70,17 +69,17 @@ make -j$(nproc) -C $(pwd) O=$(pwd)/out \
   DTC_EXT=$(pwd)/tools/dtc \
   CONFIG_BUILD_ARM64_DT_OVERLAY=y
 
-# Verification: Confirm out/arch/arm64/boot/Image, out/arch/arm64/boot/dts/vendor/qcom/blair.dtb, and out/arch/arm64/boot/dts/samsung/gta9/gta9pwifi/blair-sec.gta9pwifi.overlay.00.dtbo are generated.
+# Verification: lsd out/arch/arm64/boot/Image out/arch/arm64/boot/dts/vendor/qcom/blair.dtb out/arch/arm64/boot/dts/samsung/gta9/gta9pwifi/blair-sec.gta9pwifi.overlay.00.dtbo
 
 
 
 # Unpacking and Assembling Flashable Images
 
-rm -rf ~/kernel_workspace && mkdir -p ~/kernel_workspace/{boot,vendor_boot}
+rm -rf ~/droidian/kernel_workspace/{boot,vendor_boot,dtbo.img} && mkdir -p ~/droidian/kernel_workspace/{boot,vendor_boot}
 
 # Assemble boot.img
-cd ~/kernel_workspace/boot
-cp /path/to/stock/boot.img .
+cd ~/droidian/kernel_workspace/boot
+cp ../stock-files/boot.img .
 
 # Unpack stock boot.img
 magiskboot unpack boot.img
@@ -95,8 +94,8 @@ magiskboot repack boot.img custom_boot.img
 
 # Assemble vendor_boot.img (DTB & Vendor Ramdisk)
 
-cd ~/kernel_workspace/vendor_boot
-cp /path/to/stock/vendor_boot.img .
+cd ~/droidian/kernel_workspace/vendor_boot
+cp ../stock-files/vendor_boot.img .
 
 # Unpack vendor_boot.img
 magiskboot unpack vendor_boot.img
@@ -124,13 +123,13 @@ magiskboot repack vendor_boot.img custom_vendor_boot.img
 
 # Assemble dtbo.img
 
-mkdtboimg create ~/kernel_workspace/dtbo.img /path/to/Kernel/out/arch/arm64/boot/dts/samsung/gta9/gta9pwifi/blair-sec.gta9pwifi.overlay.00.dtbo
+mkdtboimg create ~/droidian/kernel_workspace/dtbo.img /path/to/Kernel/out/arch/arm64/boot/dts/samsung/gta9/gta9pwifi/blair-sec.gta9pwifi.overlay.00.dtbo
 
 
 
 # Package All Artifacts into Odin Flashable .tar (optional)
 
-cd ~/kernel_workspace
+cd ~/droidian/kernel_workspace
 
 cp boot/custom_boot.img boot.img
 cp vendor_boot/custom_vendor_boot.img vendor_boot.img
