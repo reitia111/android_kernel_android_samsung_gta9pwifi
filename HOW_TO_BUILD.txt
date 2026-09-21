@@ -137,3 +137,126 @@ cp vendor_boot/custom_vendor_boot.img vendor_boot.img
 
 tar -cvf custom_kernel_X210.tar boot.img vendor_boot.img dtbo.img
 
+
+
+
+
+# Mixed notes and info
+gta9p:/ # mount
+rootfs on / type rootfs (rw,seclabel,size=3665008k,nr_inodes=916252)
+tmpfs on /dev type tmpfs (rw,seclabel,nosuid,relatime,mode=755)
+devpts on /dev/pts type devpts (rw,seclabel,relatime,mode=600,ptmxmode=000)
+proc on /proc type proc (rw,relatime,gid=3009,hidepid=2)
+sysfs on /sys type sysfs (rw,seclabel,relatime)
+selinuxfs on /sys/fs/selinux type selinuxfs (rw,relatime)
+tmpfs on /mnt type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,mode=755,gid=1000)
+tmpfs on /apex type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,mode=755)
+tmpfs on /linkerconfig type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,mode=755)
+tmpfs on /mnt/installer type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,mode=755,gid=1000)
+tmpfs on /mnt/androidwritable type tmpfs (rw,seclabel,nosuid,nodev,noexec,relatime,mode=755,gid=1000)
+none on /dev/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,blkio)
+none on /dev/cg2_bpf type cgroup2 (rw,nosuid,nodev,noexec,relatime)
+none on /dev/cpuctl type cgroup (rw,nosuid,nodev,noexec,relatime,cpu)
+none on /acct type cgroup (rw,nosuid,nodev,noexec,relatime,cpuacct)
+none on /dev/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset,noprefix,release_agent=/sbin/cpuset_release_agent)
+none on /dev/memcg type cgroup (rw,nosuid,nodev,noexec,relatime,memory)
+tmpfs on /tmp type tmpfs (rw,seclabel,relatime)
+binder on /dev/binderfs type binder (rw,relatime,max=1048576,stats=global)
+none on /config type configfs (rw,relatime)
+pstore on /sys/fs/pstore type pstore (rw,seclabel,relatime)
+adb on /dev/usb-ffs/adb type functionfs (rw,relatime)
+fastboot on /dev/usb-ffs/fastboot type functionfs (rw,relatime)
+/dev/block/sda19 on /vendor/firmware_mnt type vfat (rw,relatime,fmask=0000,dmask=0000,allow_utime=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro)
+mtp on /dev/usb-ffs/mtp type functionfs (rw,relatime)
+tmpfs on /lib/modules type tmpfs (rw,seclabel,relatime)
+tmpfs on /lib/modules/5.4 type tmpfs (rw,seclabel,relatime)
+tmpfs on /tmp/lib/modules/5.4 type tmpfs (rw,seclabel,relatime)
+tmpfs on /vendor/lib/modules/1.1 type tmpfs (rw,seclabel,relatime)
+/dev/block/sda32 on /cache type ext4 (rw,seclabel,relatime)
+/dev/block/sda23 on /metadata type ext4 (rw,sync,seclabel,nosuid,nodev,noatime,discard,noauto_da_alloc,data=ordered)
+/dev/block/mmcblk1p1 on /sdcard type fuseblk (rw,nosuid,nodev,relatime,user_id=0,group_id=0,default_permissions,allow_other,max_read=131072,blksize=4096)
+/dev/block/dm-0 on /vendor type erofs (ro,seclabel,relatime,user_xattr,acl,cache_strategy=readaround)
+
+gta9p:/ # ls -lAh /dev/block/by-name/
+total 0
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 abl -> /dev/block/sde3
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 align_to_128k_2 -> /dev/block/sdf1
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 apdp -> /dev/block/sde10
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 apnhlos -> /dev/block/sda19
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 bksecapp -> /dev/block/sde6
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 blgrd -> /dev/block/sde33
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 bluetooth -> /dev/block/sde5
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 boot -> /dev/block/sda25
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 bota -> /dev/block/sda15
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 btd -> /dev/block/sde28
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 cache -> /dev/block/sda32
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 cmnlib -> /dev/block/sde8
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 cmnlib64 -> /dev/block/sde9
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 ddr -> /dev/block/sdd1
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 debug -> /dev/block/sda8
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 devcfg -> /dev/block/sde17
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 devinfo -> /dev/block/sde4
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 dip -> /dev/block/sde24
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 dpo -> /dev/block/sde11
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 dqmdbg -> /dev/block/sda18
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 dsp -> /dev/block/sda17
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 dtbo -> /dev/block/sda34
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 efs -> /dev/block/sda6
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 featenabler -> /dev/block/sde23
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 frp -> /dev/block/sda13
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 fsc -> /dev/block/sda3
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 fsg -> /dev/block/sdf2
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 grd_fw -> /dev/block/sde34
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 hdm -> /dev/block/sde31
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 hyp -> /dev/block/sde29
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 icccgrd -> /dev/block/sde30
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 imagefv -> /dev/block/sde21
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 init_boot -> /dev/block/sda26
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 keydata -> /dev/block/sda21
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 keymaster -> /dev/block/sde7
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 keyrefuge -> /dev/block/sda20
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 keystore -> /dev/block/sda12
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 limits -> /dev/block/sde12
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 limits-cdsp -> /dev/block/sde13
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 logdump -> /dev/block/sde16
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 logfs -> /dev/block/sde15
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 metadata -> /dev/block/sda23
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 misc -> /dev/block/sda11
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 modem -> /dev/block/sda24
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 modemst1 -> /dev/block/sda1
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 modemst2 -> /dev/block/sda2
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 omr -> /dev/block/sda33
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 optics -> /dev/block/sda31
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 pad -> /dev/block/sdf3
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 param -> /dev/block/sda7
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 persist -> /dev/block/sda5
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 persistent -> /dev/block/sda16
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 prism -> /dev/block/sda30
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 qupfw -> /dev/block/sde20
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 rawdump -> /dev/block/sda14
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 recovery -> /dev/block/sda27
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 rpm -> /dev/block/sde2
+lrwxrwxrwx 1 root root 14 1970-01-21 15:15 sda -> /dev/block/sda
+lrwxrwxrwx 1 root root 14 1970-01-21 15:15 sdb -> /dev/block/sdb
+lrwxrwxrwx 1 root root 14 1970-01-21 15:15 sdc -> /dev/block/sdc
+lrwxrwxrwx 1 root root 14 1970-01-21 15:15 sdd -> /dev/block/sdd
+lrwxrwxrwx 1 root root 14 1970-01-21 15:15 sde -> /dev/block/sde
+lrwxrwxrwx 1 root root 14 1970-01-21 15:15 sdf -> /dev/block/sdf
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 sec_efs -> /dev/block/sda9
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 secdata -> /dev/block/sde25
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 ssd -> /dev/block/sda4
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 steady -> /dev/block/sda10
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 storsec -> /dev/block/sde18
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 super -> /dev/block/sda29
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 toolsfv -> /dev/block/sde14
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 tz -> /dev/block/sde1
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 tz_kg -> /dev/block/sde32
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 uefisecapp -> /dev/block/sde22
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 uefivarstore -> /dev/block/sde26
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 userdata -> /dev/block/sda35
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 vbmeta -> /dev/block/sde19
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 vbmeta_system -> /dev/block/sda22
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 vendor_boot -> /dev/block/sda28
+lrwxrwxrwx 1 root root 16 1970-01-21 15:15 vk -> /dev/block/sde27
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 xbl -> /dev/block/sdb1
+lrwxrwxrwx 1 root root 15 1970-01-21 15:15 xbl_config -> /dev/block/sdc2
