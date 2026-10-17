@@ -1,2 +1,7 @@
 out/
 TODO.txt
+.build_start
+.scmversion
+dtb.img
+kernelbuild/
+modulebuild/
