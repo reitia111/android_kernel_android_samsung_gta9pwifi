@@ -8,7 +8,7 @@ CONFIG_FILE="$ROOT_DIR/out/.config"
 
 # [FIX] Get Git SHA for unique filenames
 GIT_SHA=$(git rev-parse --short HEAD)
-ZIP_NAME="ReiTia111-AnyKernel3-gta9pwifi-${GIT_SHA}.zip"
+ZIP_NAME="reitia111-AnyKernel3-gta9pwifi-${GIT_SHA}.zip"
 
 # [FIX] Mark the start time to check for stale images later
 touch .build_start

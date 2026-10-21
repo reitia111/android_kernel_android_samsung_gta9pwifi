@@ -139,6 +139,10 @@ tar -cvf custom_kernel_X210.tar boot.img vendor_boot.img dtbo.img
 
 
 
+# OR use build.sh script ("bash build.sh")
+
+
+
 
 
 # Mixed notes and info
