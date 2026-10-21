@@ -12,6 +12,9 @@
 #ifdef CONFIG_SECCOMP
 
 #include <linux/thread_info.h>
+#ifndef __GENKSYMS__
+#include <linux/atomic.h>
+#endif
 #include <asm/seccomp.h>
 
 struct seccomp_filter;
@@ -28,6 +31,15 @@ struct seccomp_filter;
  */
 struct seccomp {
 	int mode;
+#ifndef __GENKSYMS__
+	/* KernelSU-Next seccomp filter accounting.  This lands in the 4 bytes
+	 * of tail padding that follow 'int mode' on 64-bit, so the size of
+	 * this struct and the offset of @filter are unchanged.  genksyms
+	 * still sees the original two-field layout, which keeps the frozen
+	 * Android kABI CRCs intact for the prebuilt vendor modules.
+	 */
+	atomic_t filter_count;
+#endif
 	struct seccomp_filter *filter;
 };
 
