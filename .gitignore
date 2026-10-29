@@ -5,3 +5,5 @@ TODO.txt
 dtb.img
 kernelbuild/
 modulebuild/
+*.orig
+*.rej
