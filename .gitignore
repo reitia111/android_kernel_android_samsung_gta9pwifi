@@ -7,3 +7,5 @@ kernelbuild/
 modulebuild/
 *.orig
 *.rej
+
+!.gitignore
